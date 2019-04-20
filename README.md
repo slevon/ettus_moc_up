@@ -23,13 +23,19 @@ git clone https://github.com/slevon/ettus_moc_up.git
 
 ## Run:
 
-change to the directory than active the virtaul environemnt (if on Linux)
+change to the directory than active the virtaul environemnt
+if on Linux rhe UHD is alread included in the environemnt
 
 ```
 source venv/bin/activate
 ```
 
-than run the testtool
+Verfiy if you can connect to SDR using Python:
+```
+python3 ettus_find_devices.py
+```
+
+Than run the testtool
 
 ```
 python3 testdata_generator.py
