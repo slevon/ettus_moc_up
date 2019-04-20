@@ -3,6 +3,7 @@ ETTUS B210 Moc up tool
 
 ## Install:
 
+The installation is optional. If Linux/Ubunut is used it should word with the venv of this repo out of the box.
 Windows
 
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open_Source_Toolchain_(UHD_and_GNU_Radio)_on_Windows
@@ -29,10 +30,12 @@ git clone https://github.com/slevon/ettus_moc_up.git
 ## Run:
 
 change to the directory than active the virtaul environemnt (if on Linux)
-
 ```
 source venv/bin/activate
 ```
+If the venv is not used it might be neccary to install serveal modules
+e.g. matplotlib, numpy, pandas.
+
 
 than run the testtool
 
