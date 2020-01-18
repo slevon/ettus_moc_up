@@ -29,7 +29,7 @@ git clone https://github.com/slevon/ettus_moc_up.git
 
 ## Run:
 
-change to the directory than active the virtaul environemnt
+change to the directory than active the virtual environment
 if on Linux the UHD is alread included in the environemnt
 
 ```
