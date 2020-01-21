@@ -1,4 +1,4 @@
-#!/home/slevon/python/rawdatadecoder/venv/bin/python
+#!/home/slevon/python/ettus_moc_up/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

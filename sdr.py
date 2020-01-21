@@ -7,6 +7,8 @@ import logging
 from datetime import datetime, date
 
 import math
+from time import sleep
+
 import uhd
 import numpy as np
 import uhd.libpyuhd as lib
@@ -62,9 +64,10 @@ class sdr:
         self.frequency = -1     ## Must be either 1090e6 or 1030e6 \see self.set_channel
         self.tx_channel = -1    ## Number of the SDR-Channel: Default: 0 TX/RX1
         self._tx_streamer = None  ## Holds the UHD-Streamer to the SDR
-        self.tx_samples = []       ## Holds the samples to be send for each iteration
-        self.rx_samples = []       ## Holds the samples of the received signal
+        self.tx_samples = np.array([])       ## Holds the samples to be send for each iteration
+        self.rx_samples = np.array([])      ## Holds the samples of the received signal
         self.transmitting = False  ## The current SDR state #TODO: Still used?
+        self.current_time_spec = False ## The current timespec for the next transmission, FALSE if not active
 
 
         ''' Logger 
@@ -172,13 +175,13 @@ class sdr:
         self.add_telegram(telegram_type,data,amplitude)
 
 
-    def add_telegram(self, telegram_type, data, amplitude=1.0, vector_delay=0.0, vector_phase=0):
+    def add_telegram(self, telegram_type, data, amplitude=1.0, shift=0.0, vector_phase=0):
         '''
         Adds a new Telegram to the output buffer
         :param telegram_type: Type of Telegram
         :param data: Payload (if applicable) MODE-A ->oct, MODE-S-RPLY=hex
         :param amplitude: Value for the vector amplitude
-        :param vector_delay: value in seconds to delay the start of the vector
+        :param shift: value in seconds to delay the start of the vector
         :param vector_phase: The phase of the vector in rad
         :return:
         '''
@@ -195,8 +198,8 @@ class sdr:
         new_vector = np.array([0,0,0,0], dtype=np.complex64) # Some samples for time to start
 
         #delay
-        samples_delay = vector_delay * self.sample_rate
-        #print("~~~Delay {} Adding {}".format(vector_delay,samples_delay))
+        samples_delay = shift * self.sample_rate
+        #print("~~~Delay {} Adding {}".format(shift,samples_delay))
         delay_vector = np.repeat(np.array([0 + 0j], dtype=np.complex64), samples_delay)
         new_vector = np.concatenate((new_vector,delay_vector))
 
@@ -610,7 +613,7 @@ class sdr:
                 start=datetime.utcnow()
                 #print("Begin",start)                                        #The timeout:
                 sampels_sent = self._tx_streamer.send(leveled_tx_samples, metadata, stream_send_timeout)
-                print("Send took",(start-datetime.utcnow()).total_seconds(),sampels_sent)
+                #print("Send took",(start-datetime.utcnow()).total_seconds(),sampels_sent)
                 #Prepare next send;
                 metadata = uhd.types.TXMetadata()
                 metadata.end_of_burst = True
@@ -633,7 +636,7 @@ class sdr:
                     else:
                         start = datetime.utcnow()
                         success_now = self.receive_async_tx(delay)
-                        print("REceive async  took", (start - datetime.utcnow()).total_seconds(), sampels_sent)
+                        #print("REceive async  took", (start - datetime.utcnow()).total_seconds(), sampels_sent)
 
                     if success_now == 0:
                         err_send_async += 1
@@ -660,7 +663,7 @@ class sdr:
         #usrp.set_rx_gain(42.5, self.tx_channel)
 
         # Create the buffer to recv samples
-        num_samps = int(len(self.tx_samples) * 1.05)
+        num_samps = int(len(self.tx_samples)+2000)
         # self.rx_samples = np.empty((1, num_samps), dtype=np.complex64)
         self.rx_samples = np.array([], dtype=np.complex64)
 
@@ -674,12 +677,12 @@ class sdr:
         recv_buffer = np.zeros((1, num_samps), dtype=np.complex64)
 
         stream_cmd = uhd.types.StreamCMD(uhd.types.StreamMode.start_cont)
-        if self.current_time_spec:
-            stream_cmd.stream_now = False
-            stream_cmd.time_spec = uhd.types.TimeSpec(self.current_time_spec.get_real_secs())
-            #print("RX Time Spec {}".format(stream_cmd.time_spec.get_real_secs()))
-        else:
-            stream_cmd.stream_now = True
+        while not self.current_time_spec:
+            sleep(0.001) #waiting for Timespec to be set:
+
+        stream_cmd.stream_now = False
+        stream_cmd.time_spec = uhd.types.TimeSpec(self.current_time_spec.get_real_secs())
+        print("RX Time Spec {}".format(stream_cmd.time_spec.get_real_secs()))
         streamer.issue_stream_cmd(stream_cmd)
         # Receive the samples
         self.rx_samples = np.array([], dtype=np.complex64)
