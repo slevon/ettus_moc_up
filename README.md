@@ -12,11 +12,20 @@ The installation on Ubunutu is 95% automated:
  with the recommended settings.
  If a s problme should arise you can view the install script to see the steps needed
  for the setup.
+
+
 #Refernces
+
 http://files.ettus.com/manual/page_install.html
+
+
 ##Windows
+
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open_Source_Toolchain_(UHD_and_GNU_Radio)_on_Windows
+
+
 ##Linux
+
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open-Source_Toolchain_(UHD_and_GNU_Radio)_on_Linux
 
 
