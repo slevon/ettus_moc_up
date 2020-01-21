@@ -1,5 +1,11 @@
 # ettus_moc_up
+![Setup ETTUS SDR](photo_2019-04-19_20-59-13.jpg)
+
+
+
 ETTUS B210 Moc up tool
+
+
 
 ## Install:
 The installation on Ubunutu is 95% automated:
@@ -14,17 +20,17 @@ The installation on Ubunutu is 95% automated:
  for the setup.
 
 
-#Refernces
+# Refernces
 
 http://files.ettus.com/manual/page_install.html
 
 
-##Windows
+## Windows
 
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open_Source_Toolchain_(UHD_and_GNU_Radio)_on_Windows
 
 
-##Linux
+## Linux
 
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open-Source_Toolchain_(UHD_and_GNU_Radio)_on_Linux
 
@@ -34,7 +40,7 @@ If the Python3 Lib is not created an alternative cmake command could be:
 cmake -DENABLE_PYTHON_API=ON -DENABLE_PYTHON3=ON -DENABLE_C_API=ON -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_LIBRARIES=/usr/lib/x86_64-linux-gnu/libpython3.6m.so ../
 ```
 
-## Download:
+## Download
 Download this repo:
 ```
 git clone https://github.com/slevon/ettus_moc_up.git
