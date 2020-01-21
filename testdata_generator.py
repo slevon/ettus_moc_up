@@ -24,7 +24,6 @@ def get_random_payload(type):
         '''
         :param type:
         '''
-
         if type == sdr.TELEGRAM_REPLY_S_SHORT:
             #data='{:08x}'.format(random.randint(0, 0xFFFFFFFF)).encode('ascii')
             #Ohne DF (5Bit) hier DF0

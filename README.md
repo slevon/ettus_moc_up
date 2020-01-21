@@ -44,11 +44,10 @@ cmake -DENABLE_PYTHON_API=ON -DENABLE_PYTHON3=ON -DENABLE_C_API=ON -DPYTHON_EXEC
 
 ## Download
 Download this repo:
+The download is not necessary if the install script is used:
 ```
 git clone https://github.com/slevon/ettus_moc_up.git
 ```
-
-
 
 ## Run:
 Verfiy if you can connect to SDR using Python:
@@ -63,6 +62,7 @@ python3 testdata_generator.py
 
 It will show two plots an create 3 Files: 2 png of the plots and
 a `*.npy` File, that will contain the samples as numpy array.
+
 
 This array can be read using python or a c++ lib:
 https://github.com/llohse/libnpy
