@@ -2,25 +2,21 @@
 ETTUS B210 Moc up tool
 
 ## Install:
-
-The installation is optional. If Linux/Ubunut is used it should word with the venv of this repo out of the box.
-
-#New
+The installation on Ubunutu is 95% automated:
+ Download `install.sh` and execute:
+ ```
+ chmod +x install.sh
+ sudo ./install.sh
+ ```
+ This should download everthing you need and start compiling the eetus uhd lib
+ with the recommended settings.
+ If a s problme should arise you can view the install script to see the steps needed
+ for the setup.
+#Refernces
 http://files.ettus.com/manual/page_install.html
-```
-sudo add-apt-repository ppa:ettusresearch/uhd
-sudo apt-get update
-sudo apt-get install libuhd-dev libuhd3.15.0 uhd-host
-```
- 
-
-Windows
-
+##Windows
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open_Source_Toolchain_(UHD_and_GNU_Radio)_on_Windows
-
-
-Linux
-
+##Linux
 https://kb.ettus.com/Building_and_Installing_the_USRP_Open-Source_Toolchain_(UHD_and_GNU_Radio)_on_Linux
 
 
@@ -38,16 +34,6 @@ git clone https://github.com/slevon/ettus_moc_up.git
 
 
 ## Run:
-
-Change to the directory than activate the virtual environment.
-On Linux the UHD-Lib is alread included in the envirnment.
-```
-source venv/bin/activate
-```
-It might be neccary to install serveal modules
-e.g. matplotlib, numpy, pandas.
-
-
 Verfiy if you can connect to SDR using Python:
 ```
 python3 ettus_find_devices.py
@@ -57,3 +43,11 @@ Than run the testtool
 ```
 python3 testdata_generator.py
 ```
+
+It will show two plots an create 3 Files: 2 png of the plots and
+a `*.npy` File, that will contain the samples as numpy array.
+
+This array can be read using python or a c++ lib:
+https://github.com/llohse/libnpy
+
+An example C++-Programm is in the tests dir of the project

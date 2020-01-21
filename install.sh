@@ -1,0 +1,39 @@
+sudo apt install git
+sudo apt-get install libboost-all-dev libusb-1.0-0-dev python-mako doxygen python-docutils cmake build-essential
+sudo apt install python3-pip
+pip3 install numpy
+git clone git://github.com/EttusResearch/uhd.git
+cd uhd/host
+mkdir build
+cd build
+cmake -DENABLE_PYTHON_API=ON -DENABLE_PYTHON3=ON -DENABLE_C_API=ON -DPYTHON_EXECUTABLE=/usr/bin/python3  -DCMAKE_INSTALL_PREFIX=/opt/uhd ../
+make
+make test
+sudo make install
+cd python
+#Create venv:
+python3 -m venv venv
+source venv/bin/activate
+
+sudo venv/bin/python3 setup.py install
+pip install matplotlib
+
+#Download the FPGA images:
+sudo /usr/local/lib/uhd/utils/uhd_images_downloader.py
+
+#install TKinter:
+sudo apt-get install python3-tk
+
+
+#Thread:
+sudo groupadd usrp
+sudo usermod -aG usrp $USER
+#Then add the line below to end of the file /etc/security/limits.conf:
+@usrp - rtprio  99
+
+
+#Set udeev rules:
+cd ../../utils
+sudo cp uhd-usrp.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+sudo udevadm trigger
