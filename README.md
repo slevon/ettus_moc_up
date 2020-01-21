@@ -1,11 +1,13 @@
 # ettus_moc_up
 ![Setup ETTUS SDR](photo_2019-04-19_20-59-13.jpg)
 
-
-
 ETTUS B210 Moc up tool
 
-
+# Warning:
+```
+NEVER send to high levels to the input of the SDR.
+The Tx-Chain levels might destroy the Receiver of the SDR!
+```
 
 ## Install:
 The installation on Ubunutu is 95% automated:

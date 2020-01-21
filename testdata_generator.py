@@ -20,8 +20,6 @@ import sys
 
 print("start")
 
-
-
 def get_random_payload(type):
         '''
         :param type:
@@ -60,7 +58,7 @@ if __name__ == "__main__":
     print(ret)
     if ret[0] == "err":
         sys.exit(-2)
-    radio.calibrate_gain(-5)
+    radio.calibrate_gain(-40)
 
     '''
     Setting up the example vector
