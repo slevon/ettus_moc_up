@@ -1,4 +1,3 @@
-sudo apt install git
 sudo apt-get install libboost-all-dev libusb-1.0-0-dev python-mako doxygen python-docutils cmake build-essential
 sudo apt install python3-pip
 pip3 install numpy
@@ -13,8 +12,9 @@ sudo make install
 cd python
 #Create venv:
 python3 -m venv venv
+#acivate it
 source venv/bin/activate
-
+#install uhd 
 sudo venv/bin/python3 setup.py install
 pip install matplotlib
 
