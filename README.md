@@ -13,7 +13,7 @@ The Tx-Chain levels might destroy the Receiver of the SDR!
 The installation on Ubunutu is 95% automated:
  Download this repo and run `install.sh` and execute:
  ```
- sudo apt install git #Optional if git not jetzt installed
+ sudo apt install git #Optional if git not yet installed
  git clone https://github.com/slevon/ettus_moc_up.git
  cd ettus_moc_up
  chmod +x install.sh
