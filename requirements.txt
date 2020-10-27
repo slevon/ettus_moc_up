@@ -3,7 +3,7 @@ backports.functools-lru-cache==1.5
 beautifulsoup4==4.8.0
 chardet==3.0.4
 configparser==3.5.0b2
-cryptography==2.6.1
+cryptography==3.2
 dbus-python==1.2.12
 docutils==0.15.2
 entrypoints==0.3
